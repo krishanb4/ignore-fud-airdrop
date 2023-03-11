@@ -1,8 +1,15 @@
 import Navbar from "@/components/NavBar";
-
+import Head from "next/head";
 const IndexPage = () => {
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1 maximum-scale=1"
+        />
+        <title>IgnoreFud Airdrop Cliam</title>
+      </Head>
       {/* Desktop + Large Desktop */}
       <div className="hidden lg:flex flex-col w-full h-screen bg-primaryLight">
         <Navbar />
