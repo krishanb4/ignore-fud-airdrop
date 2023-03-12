@@ -14,8 +14,8 @@ export const coredao = {
     default: { http: ["https://rpc.coredao.org"] },
   },
   blockExplorers: {
-    etherscan: { name: "SnowTrace", url: "https://scan.coredao.org" },
-    default: { name: "SnowTrace", url: "https://scan.coredao.org" },
+    etherscan: { name: "CoredaoScan", url: "https://scan.coredao.org" },
+    default: { name: "CoredaoScan", url: "https://scan.coredao.org" },
   },
   contracts: {
     // multicall3: {
