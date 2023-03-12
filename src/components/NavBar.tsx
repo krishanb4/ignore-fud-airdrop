@@ -1,3 +1,4 @@
+import { Web3Button } from "@web3modal/react";
 import React from "react";
 
 const Navbar: React.FC = () => {
@@ -6,12 +7,11 @@ const Navbar: React.FC = () => {
       {/* Desktop + Large Desktop */}
       <nav className="w-9/12 mx-auto hidden lg:flex flex-row items-center pt-6 xl:pt-12 justify-between">
         <img src="/logo.png" className="h-10 xl:h-12" />
-        <button className="w-40 xl:w-48 py-2 xl:py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700">
-          {/* <p className="text-lg xl:text-xl font-medium text-white">
-            Connect{account ? "ed" : " Wallet"}
-          </p> */}
+        {/* <button className="w-40 xl:w-48 py-2 xl:py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700">
+      
           <p className="text-lg xl:text-xl font-medium text-white">Connect</p>
-        </button>
+        </button> */}
+        <Web3Button/>
       </nav>
       {/* Mobile + Tablet */}
       <nav className="w-10/12 mx-auto flex flex-row lg:hidden pt-8 justify-between">
