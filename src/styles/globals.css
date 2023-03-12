@@ -24,6 +24,10 @@ p {
     font-size: 0.95rem;
 }
 
+w3m-core-button {
+    z-index: 999;
+}
+
 @layer base {
     @font-face {
         font-family: 'Avenir Next LT Pro';
