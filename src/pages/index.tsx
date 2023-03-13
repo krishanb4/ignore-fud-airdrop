@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import Navbar from "@/components/NavBar";
-import Head from "next/head";
-import { Web3Button } from "@web3modal/react";
-import Image from "next/image";
-import addresslist from "@/config/address.json";
+import { useEffect, useState } from 'react'
+import Navbar from '@/components/NavBar'
+import Head from 'next/head'
+import { Web3Button } from '@web3modal/react'
+import Image from 'next/image'
+import addresslist from '@/config/address.json'
 import {
   useAccount,
   useConnect,
@@ -13,83 +13,47 @@ import {
   useEnsAvatar,
   useEnsName,
   usePrepareContractWrite,
-} from "wagmi";
-import { claimAirdrop } from "@/config/constants/addresses";
-import claimAirdropABI from "@/config/ABIs/claimAirdrop.json";
-import { BigNumber } from "ethers";
-import {
-  keccak256,
-  parseBytes32String,
-  toUtf8Bytes,
-} from "ethers/lib/utils.js";
+} from 'wagmi'
+import { claimAirdrop } from '@/config/constants/addresses'
+import claimAirdropABI from '@/config/ABIs/claimAirdrop.json'
+import { BigNumber } from 'ethers'
+import { keccak256, parseBytes32String, toUtf8Bytes } from 'ethers/lib/utils.js'
+import ClaimButton from '@/components/ClaimButton'
 
 type ClaimArgs = {
-  amount: BigNumber;
-  nonce: BigNumber;
-  receiver: string;
-  signature: any;
-};
+  amount: BigNumber
+  nonce: BigNumber
+  receiver: string
+  signature: any
+}
 
 const IndexPage = () => {
-  const { address, connector, isConnected } = useAccount();
-  const [eligible, isEligible] = useState(false);
-  const [args, setArgs] = useState({} as ClaimArgs);
-  const [button, setButton] = useState(<></>);
+  const { address, connector, isConnected } = useAccount()
+  const [eligible, isEligible] = useState(false)
+  const [args, setArgs] = useState({} as ClaimArgs)
   const { config, error } = usePrepareContractWrite({
     address: claimAirdrop,
     abi: eligible ? claimAirdropABI : [],
-    functionName: eligible ? "claimReward" : "",
+    functionName: eligible ? 'claimReward' : '',
     args: Object.values(args),
-  });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  })
+  const { data, isLoading, isSuccess, write } = useContractWrite(config)
 
   useEffect(() => {
     for (const element of addresslist) {
-      const addr_from_json = element;
+      const addr_from_json = element
       if (addr_from_json.address == address) {
-        isEligible(true);
+        isEligible(true)
         setArgs({
           amount: BigNumber.from(element.amount),
           nonce: BigNumber.from(element.nonce),
           receiver: element.address,
           signature: element.signature,
-        });
-        break;
+        })
+        break
       }
     }
-  }, [address]);
-  useEffect(() => {
-    if (isConnected) {
-      if (eligible && !error) {
-        setButton(
-          <button
-            onClick={() => {
-              write?.();
-            }}
-            className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
-          >
-            {(isLoading && "Loading...") ||
-              (isSuccess && "Success!") ||
-              "Claim Airdrop"}
-          </button>
-        );
-      } else if (eligible && error) {
-        setButton(
-          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-            Already Claimed!
-          </button>
-        );
-      } else {
-        setButton(
-          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#ff3c3c] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-            You are not eligible
-          </button>
-        );
-      }
-    } else {
-      setButton(<></>);
-    }
-  }, [isConnected, eligible, isLoading, isSuccess, write, error]);
+  }, [address])
 
   return (
     <>
@@ -109,10 +73,19 @@ const IndexPage = () => {
           </h1>
           <p className="mt-4 xl:mt-8 text-2xl 2xl:text-4xl w-6/12 2xl:w-5/12 font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{" "}
+            to claim your eligible token by connecting your{' '}
             <span className="font-medium">Metamask wallet</span>.
           </p>
-          {button}
+          <div>
+            <ClaimButton
+              isConnected={isConnected}
+              eligible={eligible}
+              isSuccess={isSuccess}
+              isLoading={isLoading}
+              error={error}
+              write={write}
+            />
+          </div>
         </div>
         <Image
           src="/images/airdrop.svg"
@@ -147,10 +120,19 @@ const IndexPage = () => {
           <h1 className="text-5xl font-light">Claim your Airdrop Now!</h1>
           <p className="mt-4 text-2xl font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{" "}
+            to claim your eligible token by connecting your{' '}
             <span className="font-medium">Metamask wallet</span>.
           </p>
-          {button}
+          <div>
+            <ClaimButton
+              isConnected={isConnected}
+              eligible={eligible}
+              isSuccess={isSuccess}
+              isLoading={isLoading}
+              error={error}
+              write={write}
+            />
+          </div>
           {/* <button
             className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
             onClick={() => activate(connectors.Injected)}
@@ -158,7 +140,7 @@ const IndexPage = () => {
             <p className="text-xl font-medium text-white">Connect Wallet</p>
           </button> */}
 
-          {/* <Web3Button /> */}
+          <Web3Button />
         </div>
         <Image
           src="/images/airdrop.svg"
@@ -181,7 +163,7 @@ const IndexPage = () => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
