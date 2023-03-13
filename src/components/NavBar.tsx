@@ -14,11 +14,11 @@ const Navbar: React.FC = () => {
           width="400"
           height="100"
         />
+        <Web3Button />
         {/* <button className="w-40 xl:w-48 py-2 xl:py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700">
       
           <p className="text-lg xl:text-xl font-medium text-white">Connect</p>
         </button> */}
-        <Web3Button />
       </nav>
       {/* Mobile + Tablet */}
       <nav className="w-10/12 mx-auto flex flex-row lg:hidden pt-8 justify-between">
@@ -29,6 +29,10 @@ const Navbar: React.FC = () => {
           width="400"
           height="100"
         />
+        <p className="w-6 h-6">
+          <Web3Button />
+        </p>
+
         {/* <img
           className="w-6 h-6"
           src={
