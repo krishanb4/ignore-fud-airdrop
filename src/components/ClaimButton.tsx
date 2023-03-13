@@ -22,7 +22,7 @@ export default function ClaimButton({
       );
     } else if (eligible && error) {
       return (
-        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-yellow-600 hover:bg-yellow-700">
           {error?.message.includes("Already")
             ? "Already Claimed!"
             : "Something went wrong"}
@@ -30,7 +30,7 @@ export default function ClaimButton({
       );
     } else {
       return (
-        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-red-600 hover:bg-red-700">
           You are not eligible
         </button>
       );

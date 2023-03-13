@@ -1,6 +1,7 @@
 import { Chain } from "@wagmi/core";
 
 export const coredao = {
+
   id: 1116,
   name: "Core DAO",
   network: "coredao",

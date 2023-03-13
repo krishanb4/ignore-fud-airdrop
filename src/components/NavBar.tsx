@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
           width="400"
           height="100"
         />
-        <p className="absolute top-[140px]">
+        <p className="absolute top-[140px] z-999">
           <Web3Button />
         </p>
 

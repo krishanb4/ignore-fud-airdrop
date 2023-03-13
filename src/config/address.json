@@ -1,20 +1,6 @@
-[
-    {
-        "address": "0x95252fA3a745a13F890F67D437F34d3D9C9D508e",
-        "amount": "1000",
-        "nonce": "558427606183275800",
-        "signature": "0x4704a8778f37774fb3bee379395bb71ad0c200eb1c27d6fb9bdbfde0b8797ce869c7b4477650577a76bf7ab00db673bbab19f7e6b39481e54f3433ecf5f758471b"
-    },
-    {
-        "address": "0x1F7B3B3e1dAeCbb814A5a444a0360D56013372bF",
-        "amount": "10000000000",
-        "nonce": "668708722731575300",
-        "signature": "0x08752023a00342903b755bb5d32db1d527993633fa213232b59538abf3308f4e5c91633398c07aae0b2f4ec730d01a39ba4d24c856031054e802f68dab97f5471b"
-    },
-    {
-        "address": "0xa590f8D86CFA27Beb8fFc00e04880894Bcc95D71",
-        "amount": "1000",
-        "nonce": "719396578329268400",
-        "signature": "0x3cbce91a5cb392f2b28b8c6988f66a564610136b899289df9b5328433ef3faf62374fe93965a27a8c3ba56448bec2e6373e55972151f40ecbe66667a0f55d4741b"
-    }
-]
+[{
+    "address": "0xa590f8D86CFA27Beb8fFc00e04880894Bcc95D71",
+    "amount": "1000000000000000000",
+    "nonce": "288778848253330000",
+    "signature": "0xb67716e6b3d96b0969cc98f38f37f9b05c4827b1e68d8bea22d4133fee2a11001bcf4d11e7351f2f7a43cb53f35bfdefc3efb6018bd9acc779e6c0ef0e4a1e291b"
+}]
