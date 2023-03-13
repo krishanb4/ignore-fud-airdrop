@@ -1,4 +1,5 @@
-[{
+[
+    {
         "address": "0x1753fEACAc790b69769962272cfA5782ba72AC1A",
         "amount": 1000,
         "nonce": 1,
@@ -6,9 +7,9 @@
     },
     {
         "address": "0x1F7B3B3e1dAeCbb814A5a444a0360D56013372bF",
-        "amount": 1000,
-        "nonce": 1,
-        "signature": "0xd6b0d7e093e9dd8b88c143779e27be80a2123e3b5d6df2a5298ca45c3320d1c61c4f877347cf30e322d69f5555dd78c081bca3f22e6ebfe34235bf182c802fc51c"
+        "amount": "10000000000",
+        "nonce": "668708722731575300",
+        "signature": "0x08752023a00342903b755bb5d32db1d527993633fa213232b59538abf3308f4e5c91633398c07aae0b2f4ec730d01a39ba4d24c856031054e802f68dab97f5471b"
     },
     {
         "address": "0xa590f8D86CFA27Beb8fFc00e04880894Bcc95D71",

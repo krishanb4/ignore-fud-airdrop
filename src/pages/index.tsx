@@ -15,27 +15,29 @@ import {
   usePrepareContractWrite,
 } from "wagmi";
 import { claimAirdrop } from "@/config/constants/addresses";
-import claimAirdropABI from "@/config/ABIs/claimAirdrop.json";
+import claimAirdropABI from "@/config/ABIs/claimAirdrop.json"
+import { BigNumber } from "ethers";
+import { keccak256, parseBytes32String, toUtf8Bytes } from "ethers/lib/utils.js";
 
 type ClaimArgs = {
-  amount: number;
-  nonce: number;
+  amount: BigNumber;
+  nonce: BigNumber;
   receiver: string;
-  signature: string;
-};
+  signature: any;
+}
 
 const IndexPage = () => {
   const { address, connector, isConnected } = useAccount();
   const [eligible, isEligible] = useState(false);
   const [args, setArgs] = useState({} as ClaimArgs);
   const [button, setButton] = useState(<></>);
-  const { config, error } = usePrepareContractWrite({
+  const {config, error} = usePrepareContractWrite({
     address: claimAirdrop,
-    abi: eligible ? claimAirdropABI : [],
-    functionName: eligible ? "claimReward" : "",
-    args: Object.values(args),
-  });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+    abi: eligible?claimAirdropABI:[],
+    functionName: eligible? "claimReward":"",
+    args: Object.values(args)
+  })
+const{data,isLoading,isSuccess,write} = useContractWrite(config)
 
   useEffect(() => {
     for (const element of addresslist) {
@@ -43,11 +45,11 @@ const IndexPage = () => {
       if (addr_from_json.address == address) {
         isEligible(true);
         setArgs({
-          amount: element.amount,
-          nonce: element.nonce,
+          amount: BigNumber.from(element.amount),
+          nonce: BigNumber.from(element.nonce),
           receiver: element.address,
-          signature: element.signature,
-        });
+          signature: element.signature
+        })
         break;
       }
     }
@@ -56,37 +58,25 @@ const IndexPage = () => {
     if (isConnected) {
       if (eligible && !error) {
         setButton(
-          <button
-            onClick={() => {
-              write?.();
-            }}
-            className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
-          >
-            {(isLoading && "Loading...") ||
-              (isSuccess && "Success!") ||
-              "Claim Airdrop"}
-          </button>
+          <button onClick={() => { write?.() }} className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">{
+            (isLoading && "Loading...") || (isSuccess && "Success!") || "Claim Airdrop"
+          }</button>
         );
-      } else if (eligible && error) {
+      }
+      else if (eligible && error){
         setButton(
-          <button
-            disabled
-            className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
-          >
-            Already Claimed!
-          </button>
+          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">Already Claimed!</button>
         );
-      } else {
+      }
+      else {
         setButton(
-          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-            You are not eligible
-          </button>
+          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">You are not eligible</button>
         );
       }
     } else {
       setButton(<></>);
     }
-  }, [isConnected, eligible, isLoading, isSuccess, write, error]);
+  }, [isConnected, eligible,isLoading,isSuccess,write,error]);
 
   return (
     <>
@@ -154,6 +144,8 @@ const IndexPage = () => {
           >
             <p className="text-xl font-medium text-white">Connect Wallet</p>
           </button> */}
+
+          <Web3Button />
         </div>
         <Image
           src="/images/airdrop.svg"
