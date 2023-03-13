@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/NavBar";
 import Head from "next/head";
 import { Web3Button } from "@web3modal/react";
@@ -16,13 +16,16 @@ const IndexPage = () => {
   const { address, connector, isConnected } = useAccount();
   const [eligible, isEligible] = useState(false);
 
-  for (var index = 0; index < addresslist.length; ++index) {
+  useEffect(() => {
+    for (var index = 0; index < addresslist.length; ++index) {
     var addr_from_json = addresslist[index];
     if (addr_from_json.address == address) {
       isEligible(true);
       break;
     }
   }
+  },[address])
+  
 
   return (
     <>
