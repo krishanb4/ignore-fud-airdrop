@@ -7,39 +7,68 @@ import addresslist from "@/config/address.json";
 import {
   useAccount,
   useConnect,
+  useContract,
+  useContractWrite,
   useDisconnect,
   useEnsAvatar,
   useEnsName,
+  usePrepareContractWrite,
 } from "wagmi";
+import { claimAirdrop } from "@/config/constants/addresses";
+import claimAirdropABI from "@/config/ABIs/claimAirdrop.json"
+
+type ClaimArgs = {
+  amount: number;
+  nonce: number;
+  receiver: string;
+  signature: string;
+}
 
 const IndexPage = () => {
   const { address, connector, isConnected } = useAccount();
   const [eligible, isEligible] = useState(false);
-  const [button, setButton] = useState("");
+  const [args, setArgs] = useState({} as ClaimArgs);
+  const [button, setButton] = useState(<></>);
+  const {config, error} = usePrepareContractWrite({
+    address: claimAirdrop,
+    abi: eligible?claimAirdropABI:[],
+    functionName: eligible? "claimReward":"",
+    args: Object.values(args)
+  })
+const{data,isLoading,isSuccess,write} = useContractWrite(config)
+
   useEffect(() => {
     for (const element of addresslist) {
       const addr_from_json = element;
       if (addr_from_json.address == address) {
         isEligible(true);
+        setArgs({
+          amount: element.amount,
+          nonce: element.nonce,
+          receiver: element.address,
+          signature: element.signature
+        })
         break;
       }
     }
   }, [address]);
   useEffect(() => {
     if (isConnected) {
-      if (eligible) {
+      if (eligible && !error) {
         setButton(
-          '<button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">Claim Airdrop</button>'
+          <button onClick={() => { write?.() }} className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">{
+            (isLoading && "Loading...") || (isSuccess && "Success!") || "Claim Airdrop"
+          }</button>
         );
       } else {
         setButton(
-          '<button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">You are not eligible</button>'
+          <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">You are not eligible</button>
         );
       }
     } else {
-      setButton("");
+      setButton(<></>);
     }
-  }, [isConnected, eligible]);
+  }, [isConnected, eligible,isLoading,isSuccess,write,error]);
 
   return (
     <>

@@ -1,0 +1,1 @@
+export const claimAirdrop = "0x780cB3F2FB0C8f5F3C0BB81c176E3F6746f5A6A1";
