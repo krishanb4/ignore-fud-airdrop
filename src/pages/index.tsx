@@ -1,8 +1,29 @@
+import { useState } from "react";
 import Navbar from "@/components/NavBar";
 import Head from "next/head";
 import { Web3Button } from "@web3modal/react";
 import Image from "next/image";
+import addresslist from "@/config/address.json";
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useEnsAvatar,
+  useEnsName,
+} from "wagmi";
+
 const IndexPage = () => {
+  const { address, connector, isConnected } = useAccount();
+  const [eligible, isEligible] = useState(false);
+
+  for (var index = 0; index < addresslist.length; ++index) {
+    var addr_from_json = addresslist[index];
+    if (addr_from_json.address == address) {
+      isEligible(true);
+      break;
+    }
+  }
+
   return (
     <>
       <Head>
@@ -24,6 +45,15 @@ const IndexPage = () => {
             to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
+          {isConnected && eligible ? (
+            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+              Claim Airdrop
+            </button>
+          ) : (
+            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+              Connect wallet
+            </button>
+          )}
         </div>
         <Image
           src="/images/airdrop.svg"
@@ -61,12 +91,22 @@ const IndexPage = () => {
             to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
+          {isConnected && eligible ? (
+            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+              Claim Airdrop
+            </button>
+          ) : (
+            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
+              Connect wallet
+            </button>
+          )}
           {/* <button
             className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
             onClick={() => activate(connectors.Injected)}
           >
             <p className="text-xl font-medium text-white">Connect Wallet</p>
           </button> */}
+
           <Web3Button />
         </div>
         <Image
