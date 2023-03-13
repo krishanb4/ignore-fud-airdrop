@@ -15,17 +15,31 @@ import {
 const IndexPage = () => {
   const { address, connector, isConnected } = useAccount();
   const [eligible, isEligible] = useState(false);
-
+  const [button, setButton] = useState("");
   useEffect(() => {
-    for (var index = 0; index < addresslist.length; ++index) {
-    var addr_from_json = addresslist[index];
-    if (addr_from_json.address == address) {
-      isEligible(true);
-      break;
+    for (const element of addresslist) {
+      const addr_from_json = element;
+      if (addr_from_json.address == address) {
+        isEligible(true);
+        break;
+      }
     }
-  }
-  },[address])
-  
+  }, [address]);
+  useEffect(() => {
+    if (isConnected) {
+      if (eligible) {
+        setButton(
+          '<button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">Claim Airdrop</button>'
+        );
+      } else {
+        setButton(
+          '<button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">You are not eligible</button>'
+        );
+      }
+    } else {
+      setButton("");
+    }
+  }, [isConnected, eligible]);
 
   return (
     <>
@@ -48,15 +62,7 @@ const IndexPage = () => {
             to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
-          {isConnected && eligible ? (
-            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-              Claim Airdrop
-            </button>
-          ) : (
-            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-              Connect wallet
-            </button>
-          )}
+          {button}
         </div>
         <Image
           src="/images/airdrop.svg"
@@ -94,15 +100,7 @@ const IndexPage = () => {
             to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
-          {isConnected && eligible ? (
-            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-              Claim Airdrop
-            </button>
-          ) : (
-            <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700">
-              Connect wallet
-            </button>
-          )}
+          {button}
           {/* <button
             className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
             onClick={() => activate(connectors.Injected)}
