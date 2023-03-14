@@ -17,7 +17,7 @@ import {
   useSwitchNetwork,
 } from "wagmi";
 import { claimAirdrop } from "@/config/constants/addresses";
-import claimAirdropABI from "@/config/abi/claimAirdrop.json";
+import claimAirdropABI from "@/config/abi/claimcontract.json";
 import { BigNumber } from "ethers";
 import {
   keccak256,
