@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import Navbar from '@/components/NavBar'
-import Head from 'next/head'
-import { Web3Button } from '@web3modal/react'
-import Image from 'next/image'
-import addresslist from '@/config/address.json'
+import { useEffect, useState } from "react";
+import Navbar from "@/components/NavBar";
+import Head from "next/head";
+import { Web3Button } from "@web3modal/react";
+import Image from "next/image";
+import addresslist from "@/config/address.json";
 import {
   useAccount,
   useConnect,
@@ -15,60 +15,67 @@ import {
   useNetwork,
   usePrepareContractWrite,
   useSwitchNetwork,
-} from 'wagmi'
-import { claimAirdrop } from '@/config/constants/addresses'
-import claimAirdropABI from '@/config/ABIs/claimAirdrop.json'
-import { BigNumber } from 'ethers'
-import { keccak256, parseBytes32String, toUtf8Bytes } from 'ethers/lib/utils.js'
-import ClaimButton from '@/components/ClaimButton'
-
+} from "wagmi";
+import { claimAirdrop } from "@/config/constants/addresses";
+import claimAirdropABI from "@/config/ABIs/claimAirdrop.json";
+import { BigNumber } from "ethers";
+import {
+  keccak256,
+  parseBytes32String,
+  toUtf8Bytes,
+} from "ethers/lib/utils.js";
+//import ClaimButton from '@/components/ClaimButton'
+import dynamic from "next/dynamic";
+const ClaimButton = dynamic(() => import("@/components/ClaimButton"), {
+  ssr: false,
+});
 
 type ClaimArgs = {
-  amount: BigNumber
-  nonce: BigNumber
-  receiver: string
-  signature: any
-}
+  amount: BigNumber;
+  nonce: BigNumber;
+  receiver: string;
+  signature: any;
+};
 
 const IndexPage = () => {
-  const { address, connector, isConnected } = useAccount()
-  const [eligible, isEligible] = useState(false)
-  const [args, setArgs] = useState({} as ClaimArgs)
+  const { address, connector, isConnected } = useAccount();
+  const [eligible, isEligible] = useState(false);
+  const [args, setArgs] = useState({} as ClaimArgs);
   const { config, error } = usePrepareContractWrite({
     address: claimAirdrop,
     abi: eligible ? claimAirdropABI : [],
-    functionName: eligible ? 'claimReward' : '',
+    functionName: eligible ? "claimReward" : "",
     args: Object.values(args),
-  })
-  const { data, isLoading, isSuccess, write } = useContractWrite(config)
+  });
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-  const { chain } = useNetwork()
-  const {switchNetwork} = useSwitchNetwork()
- 
-
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
   useEffect(() => {
-    if(isConnected){switchNetwork?.(1116)}
-  }, [isConnected,chain])
+    if (isConnected) {
+      switchNetwork?.(1116);
+    }
+  }, [isConnected, chain]);
 
   useEffect(() => {
     const filtered = addresslist.filter(
-      (element) => element.address === address,
-    )
+      (element) => element.address === address
+    );
     if (filtered.length > 0) {
-      const element = filtered[0]
-      isEligible(true)
+      const element = filtered[0];
+      isEligible(true);
       setArgs({
         amount: BigNumber.from(element.amount),
         nonce: BigNumber.from(element.nonce),
         receiver: element.address,
         signature: element.signature,
-      })
+      });
     } else {
-      isEligible(false)
-      setArgs({} as ClaimArgs)
+      isEligible(false);
+      setArgs({} as ClaimArgs);
     }
-  }, [address])
+  }, [address]);
 
   return (
     <>
@@ -88,7 +95,7 @@ const IndexPage = () => {
           </h1>
           <p className="mt-4 xl:mt-8 text-2xl 2xl:text-4xl w-6/12 2xl:w-5/12 font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{' '}
+            to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
@@ -135,7 +142,7 @@ const IndexPage = () => {
           <h1 className="text-5xl font-light">Claim your Airdrop Now!</h1>
           <p className="mt-4 text-2xl font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{' '}
+            to claim your eligible token by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
@@ -155,7 +162,7 @@ const IndexPage = () => {
             <p className="text-xl font-medium text-white">Connect Wallet</p>
           </button> */}
 
-          <Web3Button />
+          {/* <Web3Button /> */}
         </div>
         <Image
           src="/images/airdrop.svg"
@@ -178,7 +185,7 @@ const IndexPage = () => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
