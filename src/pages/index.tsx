@@ -102,6 +102,7 @@ const IndexPage = () => {
             <ClaimButton
               isConnected={isConnected}
               eligible={eligible}
+              amount={Number(args.amount) / 10 ** 18}
               isSuccess={isSuccess}
               isLoading={isLoading}
               error={error}
@@ -149,6 +150,7 @@ const IndexPage = () => {
             <ClaimButton
               isConnected={isConnected}
               eligible={eligible}
+              amount={Number(args.amount) / 10 ** 18}
               isSuccess={isSuccess}
               isLoading={isLoading}
               error={error}

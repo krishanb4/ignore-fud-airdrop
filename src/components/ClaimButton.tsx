@@ -1,6 +1,7 @@
 export default function ClaimButton({
   isConnected,
   eligible,
+  amount,
   error,
   isLoading,
   isSuccess,
@@ -15,17 +16,25 @@ export default function ClaimButton({
           }}
           className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
         >
-          {(isLoading && "Loading...") ||
-            (isSuccess && "Success!") ||
-            "Claim Airdrop"}
+          {(isLoading && "Loading...") || (isSuccess && "Success!") || (
+            <>
+              Claim Airdrop <br />
+              {amount} SFC
+            </>
+          )}
         </button>
       );
     } else if (eligible && error) {
       return (
-        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-yellow-600 hover:bg-yellow-700">
-          {error?.message?.includes("Already")
-            ? "Already Claimed!"
-            : "Something went wrong"}
+        <button className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto text-[#fff] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-[#02af01] hover:bg-[#1a821a]">
+          {error?.message?.includes("Already") ? (
+            <>
+              Already Claimed!
+              <br /> {amount} SFC
+            </>
+          ) : (
+            "Something went wrong"
+          )}
         </button>
       );
     } else {
