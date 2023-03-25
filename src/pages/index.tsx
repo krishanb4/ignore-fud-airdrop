@@ -26,6 +26,11 @@ import {
 } from "ethers/lib/utils.js";
 //import ClaimButton from '@/components/ClaimButton'
 import dynamic from "next/dynamic";
+import CountdownTimer from "@/components/Countdown";
+import CountdownTimerTest from "@/components/CountdownTest";
+const Countdown = dynamic(() => import("react-countdown"), {
+  ssr: false,
+});
 const ClaimButton = dynamic(() => import("@/components/ClaimButton"), {
   ssr: false,
 });
@@ -99,7 +104,11 @@ const IndexPage = () => {
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
-            <ClaimButton
+            <Countdown
+              date={new Date("2023-03-25T16:00:00Z").valueOf()}
+              intervalDelay={0}
+            />
+            {/* <ClaimButton
               isConnected={isConnected}
               eligible={eligible}
               amount={Number(args.amount) / 10 ** 18}
@@ -107,7 +116,7 @@ const IndexPage = () => {
               isLoading={isLoading}
               error={error}
               write={write}
-            />
+            /> */}
           </div>
         </div>
         <Image
@@ -147,7 +156,11 @@ const IndexPage = () => {
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
-            <ClaimButton
+            <Countdown
+              date={new Date("2023-03-25T16:00:00Z").valueOf()}
+              intervalDelay={0}
+            />
+            {/* <ClaimButton
               isConnected={isConnected}
               eligible={eligible}
               amount={Number(args.amount) / 10 ** 18}
@@ -155,7 +168,7 @@ const IndexPage = () => {
               isLoading={isLoading}
               error={error}
               write={write}
-            />
+            /> */}
           </div>
           {/* <button
             className="relative w-48 py-3 px-3 mt-4 z-40 mx-auto flex flex-row items-center justify-center rounded-xl cursor-pointer bg-blue-600 hover:bg-blue-700"
