@@ -143,7 +143,7 @@ const IndexPage = () => {
           <h1 className="text-5xl font-light">Claim your Airdrop Now!</h1>
           <p className="mt-4 text-2xl font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{" "}
+            to claim your 4TOKEN by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
