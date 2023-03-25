@@ -95,7 +95,7 @@ const IndexPage = () => {
           </h1>
           <p className="mt-4 xl:mt-8 text-2xl 2xl:text-4xl w-6/12 2xl:w-5/12 font-light">
             Awesome that you have participated in our Airdrop. Now is the time
-            to claim your eligible token by connecting your{" "}
+            to claim your 4TOKEN by connecting your{" "}
             <span className="font-medium">Metamask wallet</span>.
           </p>
           <div>
