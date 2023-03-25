@@ -19,7 +19,7 @@ export default function ClaimButton({
           {(isLoading && "Loading...") || (isSuccess && "Success!") || (
             <>
               Claim Airdrop <br />
-              {amount} SFC
+              {amount} 4TOKEN
             </>
           )}
         </button>
@@ -30,7 +30,7 @@ export default function ClaimButton({
           {error?.message?.includes("Already") ? (
             <>
               Already Claimed!
-              <br /> {amount} SFC
+              <br /> {amount} 4TOKEN
             </>
           ) : (
             "Something went wrong"
