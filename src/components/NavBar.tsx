@@ -3,6 +3,9 @@ import React from "react";
 import Image from "next/image";
 
 const Navbar: React.FC = () => {
+  const mystyle = {
+    zIndex: 9999,
+  };
   return (
     <>
       {/* Desktop + Large Desktop */}
@@ -15,6 +18,7 @@ const Navbar: React.FC = () => {
           height="100"
         />
         <Web3Button />
+
         {/* <button className="w-40 xl:w-48 py-2 xl:py-3 px-3 z-20 flex flex-row items-center justify-center rounded-lg cursor-pointer bg-blue-600 hover:bg-blue-700">
       
           <p className="text-lg xl:text-xl font-medium text-white">Connect</p>
@@ -29,7 +33,10 @@ const Navbar: React.FC = () => {
           width="400"
           height="100"
         />
-        <p className="absolute top-[155px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-999">
+        <p
+          className="absolute top-[155px] left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          style={mystyle}
+        >
           <Web3Button />
         </p>
 

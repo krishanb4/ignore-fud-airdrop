@@ -30,7 +30,7 @@ p {
 }
 
 w3m-core-button {
-    z-index: 999;
+    z-index: 9999;
 }
 
 @layer base {
