@@ -61,13 +61,13 @@ const IndexPage = () => {
     if (isConnected) {
       switchNetwork?.(1116);
     }
-  }, [isConnected, chain]);
+  }, [isConnected, chain, switchNetwork]);
 
   useEffect(() => {
     const filtered = addresslist.filter(
       (element) => element.address == address
     );
-        
+
     if (filtered.length > 0) {
       const element = filtered[0];
       isEligible(true);
