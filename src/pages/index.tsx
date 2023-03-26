@@ -65,8 +65,9 @@ const IndexPage = () => {
 
   useEffect(() => {
     const filtered = addresslist.filter(
-      (element) => element.address === address
+      (element) => element.address == address
     );
+        
     if (filtered.length > 0) {
       const element = filtered[0];
       isEligible(true);
